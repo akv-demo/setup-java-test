@@ -19,7 +19,7 @@ jobs:
       - name: Sdkmanager
         run: |
           set -x
-          sdkmanager --list
+          $ANDROID_HOME/tools/bin/sdkmanager --list
           
       - name: Download image
         run: |
