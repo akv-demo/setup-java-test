@@ -16,10 +16,7 @@ jobs:
     runs-on: macos-12
   
     steps: 
-      - name: Sdkmanager
-        run: |
-          set -x
-          $ANDROID_HOME/tools/bin/sdkmanager --list
+
           
       - name: Download image
         run: |
@@ -35,6 +32,10 @@ jobs:
         run: |
           echo "no" | $ANDROID_HOME/tools/bin/avdmanager create avd -n Pixel_API_29_AOSP -d pixel --package 'system-images;android-29;default;x86_64' --force
           $ANDROID_HOME/emulator/emulator -list-avds
+          
+      - name: Set up virtualization
+        run: |
+          brew install intel-haxm
           
       - name: Start Android emulator
         run: |
