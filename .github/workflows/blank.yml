@@ -44,7 +44,7 @@ jobs:
         run: |
           # brew install intel-haxm
           sysctl kern.hv_support
-          echo 'HVF = off' >> ~/.android/advancedFeatures.ini
+          echo 'HVF = on' >> ~/.android/advancedFeatures.ini
           cat ~/.android/advancedFeatures.ini
           #sudo sdkmanager --install "extras;intel;Hardware_Accelerated_Execution_Manager"
           #chmod +x $ANDROID_HOME/extras/intel/Hardware_Accelerated_Execution_Manager/silent_install.sh
