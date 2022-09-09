@@ -21,8 +21,8 @@ jobs:
       - name: Download image
         run: |
           set -x
-          $ANDROID_HOME/tools/bin/sdkmanager --list --verbose
-          echo "y" | $ANDROID_HOME/tools/bin/sdkmanager --install 'system-images;android-29;default;x86'
+          $ANDROID_HOME/tools/bin/sdkmanager --list 
+          echo "y" | $ANDROID_HOME/tools/bin/sdkmanager --install 'system-images;android-31;google_apis;x86_64'
           
 
       - name: Apply licenses
@@ -32,7 +32,7 @@ jobs:
           
       - name: Create Android emulator
         run: |
-          echo "no" | $ANDROID_HOME/tools/bin/avdmanager create avd -n Pixel_API_29_AOSP -d pixel --package 'system-images;android-29;default;x86' --force
+          echo "no" | $ANDROID_HOME/tools/bin/avdmanager create avd -n Pixel_API_29_AOSP -d pixel --package 'system-images;android-31;google_apis;x86_64' --force
           $ANDROID_HOME/emulator/emulator -list-avds
           
       - name: Set up virtualization
@@ -55,6 +55,7 @@ jobs:
           $ANDROID_HOME/platform-tools/adb wait-for-device shell 'while [[ -z $(getprop sys.boot_completed | tr -d '\r') ]]; do echo "wait..."; sleep 1; done; input keyevent 82'
           echo "Emulator has finished booting"
           $ANDROID_HOME/platform-tools/adb devices
+          sleep 10
           screencapture screenshot.jpg
           $ANDROID_HOME/platform-tools/adb exec-out screencap -p > emulator.png
           #osascript click.as
