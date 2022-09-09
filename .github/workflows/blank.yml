@@ -40,6 +40,7 @@ jobs:
           sysctl kern.hv_support
           echo 'HVF = on' >> ~/.android/advancedFeatures.ini
           cat ~/.android/advancedFeatures.ini
+          sudo sdkmanager --install "extras;intel;Hardware_Accelerated_Execution_Manager"
           
       - name: Start Android emulator
         run: |
