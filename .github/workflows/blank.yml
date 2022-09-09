@@ -42,7 +42,7 @@ jobs:
           
       - name: Set up virtualization
         run: |
-          # brew install intel-haxm
+          brew install intel-haxm
           sysctl kern.hv_support
           echo 'HVF = on' >> ~/.android/advancedFeatures.ini
           cat ~/.android/advancedFeatures.ini
