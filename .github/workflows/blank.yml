@@ -21,7 +21,8 @@ jobs:
       - name: Download image
         run: |
           set -x
-          echo "y" | $ANDROID_HOME/tools/bin/sdkmanager --install 'system-images;android-29;default;x86_64'
+          kextstat | grep intel
+          
 
       - name: Apply licenses
         run: |
@@ -35,7 +36,9 @@ jobs:
           
       - name: Set up virtualization
         run: |
-          brew install intel-haxm
+          # brew install intel-haxm
+          mkdir ~/.android
+          echo 'HVF = on' >> ~/.android/advancedFeatures.ini
           
       - name: Start Android emulator
         run: |
