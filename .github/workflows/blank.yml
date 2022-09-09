@@ -22,7 +22,7 @@ jobs:
         run: |
           set -x
           $ANDROID_HOME/tools/bin/sdkmanager --list 
-          echo "y" | $ANDROID_HOME/tools/bin/sdkmanager --install 'system-images;android-31;google_apis;x86_64'
+          echo "y" | $ANDROID_HOME/tools/bin/sdkmanager --install 'system-images;android-31;default;x86_64'
           
 
       - name: Apply licenses
@@ -32,7 +32,7 @@ jobs:
           
       - name: Create Android emulator
         run: |
-          echo "no" | $ANDROID_HOME/tools/bin/avdmanager create avd -n Pixel_API_29_AOSP -d pixel --package 'system-images;android-31;google_apis;x86_64' --force
+          echo "no" | $ANDROID_HOME/tools/bin/avdmanager create avd -n Pixel_API_29_AOSP -d pixel --package 'system-images;android-31;default;x86_64' --force
           $ANDROID_HOME/emulator/emulator -list-avds
           
       - name: Set up virtualization
@@ -51,7 +51,7 @@ jobs:
           ls -la $ANDROID_HOME/emulator
           #nohup $ANDROID_HOME/emulator/emulator -avd Pixel_API_29_AOSP -no-snapshot -no-window -no-audio -no-boot-anim -camera-back none -camera-front none -qemu -m 2048 2>&1 &
           #nohup $ANDROID_HOME/tools/emulator -avd Pixel_API_29_AOSP -gpu guest -no-audio -no-boot-anim -camera-back none -camera-front none -qemu -m 2048 2>&1 &
-          nohup $ANDROID_HOME/emulator/emulator -avd Pixel_API_29_AOSP -feature HVF -verbose -no-audio -no-boot-anim -camera-back none -camera-front none -feature -Vulkan -qemu -m 3072 2>&1 &
+          nohup $ANDROID_HOME/emulator/emulator -avd Pixel_API_29_AOSP -feature HVF -verbose -no-audio -no-boot-anim -camera-back none -camera-front none -feature -Vulkan -qemu -m 2048 2>&1 &
           $ANDROID_HOME/platform-tools/adb wait-for-device shell 'while [[ -z $(getprop sys.boot_completed | tr -d '\r') ]]; do echo "wait..."; sleep 1; done; input keyevent 82'
           echo "Emulator has finished booting"
           $ANDROID_HOME/platform-tools/adb devices
