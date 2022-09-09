@@ -27,7 +27,7 @@ jobs:
       - name: Download image
         run: |
           set -x
-          echo "y" | $ANDROID_HOME/tools/bin/sdkmanager --install 'system-images;android-31;default;x86_64'
+          echo "y" | $ANDROID_HOME/tools/bin/sdkmanager --install 'system-images;android-27;default;x86_64'
           
 
       - name: Apply licenses
@@ -37,7 +37,7 @@ jobs:
           
       - name: Create Android emulator
         run: |
-          echo "no" | $ANDROID_HOME/tools/bin/avdmanager create avd -n Pixel_API_29_AOSP -d pixel --package 'system-images;android-31;default;x86_64' --force
+          echo "no" | $ANDROID_HOME/tools/bin/avdmanager create avd -n Pixel_API_29_AOSP -d pixel --package 'system-images;android-27;default;x86_64' --force
           $ANDROID_HOME/emulator/emulator -list-avds
           
       - name: Set up virtualization
