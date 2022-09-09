@@ -21,7 +21,7 @@ jobs:
       - name: Download image
         run: |
           set -x
-          kextstat | grep intel
+          echo "y" | $ANDROID_HOME/tools/bin/sdkmanager --install 'system-images;android-29;default;x86_64'
           
 
       - name: Apply licenses
