@@ -41,8 +41,8 @@ jobs:
           echo 'HVF = on' >> ~/.android/advancedFeatures.ini
           cat ~/.android/advancedFeatures.ini
           #sudo sdkmanager --install "extras;intel;Hardware_Accelerated_Execution_Manager"
-          chmod +x $ANDROID_HOME/extras/intel/Hardware_Accelerated_Execution_Manager/silent_install.sh
-          sudo $ANDROID_HOME/extras/intel/Hardware_Accelerated_Execution_Manager/silent_install.sh
+          #chmod +x $ANDROID_HOME/extras/intel/Hardware_Accelerated_Execution_Manager/silent_install.sh
+          #sudo $ANDROID_HOME/extras/intel/Hardware_Accelerated_Execution_Manager/silent_install.sh
           
       - name: Start Android emulator
         run: |
@@ -50,7 +50,7 @@ jobs:
           ls -la $ANDROID_HOME/emulator
           #nohup $ANDROID_HOME/emulator/emulator -avd Pixel_API_29_AOSP -no-snapshot -no-window -no-audio -no-boot-anim -camera-back none -camera-front none -qemu -m 2048 2>&1 &
           #nohup $ANDROID_HOME/tools/emulator -avd Pixel_API_29_AOSP -gpu guest -no-audio -no-boot-anim -camera-back none -camera-front none -qemu -m 2048 2>&1 &
-          nohup $ANDROID_HOME/emulator/emulator -avd Pixel_API_29_AOSP -verbose -no-audio -no-boot-anim -camera-back none -camera-front none -feature -Vulkan -qemu -m 3072 2>&1 &
+          nohup $ANDROID_HOME/emulator/emulator -avd Pixel_API_29_AOSP -gpu host -feature HVF -verbose -no-audio -no-boot-anim -camera-back none -camera-front none -feature -Vulkan -qemu -m 3072 2>&1 &
           $ANDROID_HOME/platform-tools/adb wait-for-device shell 'while [[ -z $(getprop sys.boot_completed | tr -d '\r') ]]; do echo "wait..."; sleep 1; done; input keyevent 82'
           echo "Emulator has finished booting"
           $ANDROID_HOME/platform-tools/adb devices
