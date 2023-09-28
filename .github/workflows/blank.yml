@@ -22,12 +22,18 @@ jobs:
       - name: Checkout ${{ github.ref }} ( ${{ github.sha }} )
         uses: actions/checkout@v3
 
+      - name: ls -la
+        run: ls -la
+
       - name: Caching dependencies
         uses: actions/cache@v3
         with:
           path: target
           key: ${{ runner.os }}-${{ matrix.java }}-${{ hashFiles('src/**/*.scala', 'build.sbt') }}
           restore-keys: ${{ runner.os }}-${{ matrix.java }}-
+
+      - name: ls -la
+        run: ls -la
           
 
       - name: Set up JDK ${{ matrix.java }}
@@ -37,4 +43,6 @@ jobs:
           distribution: 'zulu'
 
       - name: compile
-        run: sbt compile
+        run: |
+          ls -la
+          sbt compile
