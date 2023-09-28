@@ -44,5 +44,6 @@ jobs:
 
       - name: compile
         run: |
+          which java
           ls -la
           sbt compile
