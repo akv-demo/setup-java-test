@@ -46,4 +46,4 @@ jobs:
         run: |
           which java
           ls -la
-          sbt compile
+          time sbt compile
