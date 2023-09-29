@@ -6,9 +6,7 @@ name: CI
 on:
   # Triggers the workflow on push or pull request events but only for the "main" branch
   push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -18,20 +16,10 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        java: [ '11' ]
+        java: [ '8', '11' ]
 
     steps:
-      - name: Checkout ${{ github.ref }} ( ${{ github.sha }} )
-        uses: actions/checkout@v3
-
-      - name: Caching dependencies
-        uses: actions/cache@v3
-        with:
-          path: target
-          key: ${{ runner.os }}-${{ matrix.java }}-${{ hashFiles('src/**/*.scala', 'build.sbt') }}
-          restore-keys: ${{ runner.os }}-${{ matrix.java }}-
-          
-
+ 
       - name: Set up JDK ${{ matrix.java }}
         uses: actions/setup-java@v3
         with:
@@ -39,4 +27,6 @@ jobs:
           distribution: 'zulu'
 
       - name: compile
-        run: sbt compile
+        run: |
+          which java
+          set
