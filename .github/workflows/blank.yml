@@ -29,4 +29,4 @@ jobs:
       - name: compile
         run: |
           which java
-          set
+          find $JAVA_HOME |xargs ls -la
